@@ -1,0 +1,34 @@
+Arina Emanuela Turcu 323CA
+
+================================ Tema 1 IOCLA ================================
+
+    In implementarea functiei iocla_printf s-a parcurs string-ul format dat ca 
+prim parametru al functiei. La fiecare caracter s-a verificat daca este egal 
+cu '%' si daca da, s-au aplicat instructiunie necesare in fuctie de caracterul 
+care succede '%', astfel:
+    - 'd', 'u' si 'x': se pune intr-o variabila buff de tip char* numarul citit 
+folosind functia itoa. buff este apoi dat ca parametru functiei write_stdout 
+pentru a fi afisat. Numerele sunt tratate diferit in functia itoa in functie de 
+caracterul citit('d', 'u' sau 'x').
+    - 'c': se aloca memorie pentru un caracter in buff si se pune acolo 
+caracterul citit care este apoi afisat folosind functia write_stdout.
+    - 's': buff va arata spre string-ul citit si va fi dat ca parametru 
+functiei write_stdout.
+
+Argumentele au fost citite folosind macro-urile va_arg.
+
+Functia ajutatoare itoa primeste ca parametri urmatoarele: 
+- value de tip unsigned int care reprezinta numarul care trebuie transformat in 
+string
+- base care este baza in care vrem sa afisam numarul
+- usign care este 1 daca vrem ca numarul sa fie afisat fara semn si 0 daca 
+vrem sa fie afisat cu semn
+
+Se afla daca numarul este negativ prin verificarea daca primul bit este setat. 
+Daca este negativ si il vrem afisat fara semn, valoarea numarului va fi 
+inlocuita cu valoarea complementului, adica ~(value - 1). Se formeaza 
+string-ul care trebuie returnat doar ca in ordine inversa. Daca numarul este 
+negativ si se vrea afisat cu semn, se pune caracterul '-' la final. Se 
+rastoarna string-ul si se returneaza.
+
+Functia iocla_printf returneaza numarul de caractere afisate.

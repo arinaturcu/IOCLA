@@ -1,0 +1,9 @@
+#Ghidra Lock File
+#Tue Oct 27 19:42:48 EET 2020
+OS\ Name=Linux
+OS\ Version=4.15.0-65-generic
+Username=radu
+Hostname=Radu-PC
+<META>\ Supports\ File\ Channel\ Locking=Channel Lock
+OS\ Architecture=amd64
+Timestamp=10/27/20, 7\:42 PM

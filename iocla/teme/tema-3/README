@@ -1,0 +1,32 @@
+Arina Emanuela Turcu 323CA
+
+================================ Tema 3 IOCLA ================================
+
+    Pentru rezolvarea temei s-au implementat cele 2 functii, iocla_atoi si
+create_tree.
+
+iocla_atoi: 
+    Functia iocla_atoi functioneaza prin citirea caracterelor pe rand din
+stringul primit ca parametru si creand numarul in registrul edx astfel:
+se ia primul caracter din string (daca primul caracter este '-', se ia 
+urmatorul caracter) si se pune in edx. La fiecare pas, edx se inmulteste cu 
+10 si se adauga la el urmatoarea cifra citita (cifra este data de codul ei in
+ASCII - codul ASCII al caracterului '0'). Daca primul caracter din string este
+'-', numarul va fi negativ deci la final se va face neg edx si se va pune 
+valoarea in eax.
+
+create_tree:
+    Functia create_tree ia primul token din string-ul primit ca parametru, 
+creeaza radacina si apoi apeleaza functia add_nodes care adauga recursiv 
+restul nodurilor si returneaza radacina arborelui. 
+    In functia add_nodes se verifica daca token-ul este numar sau operand prin 
+functia is_number, se creeaza un nod nou care contine tokenul curent si se 
+adauga recursiv in arbore. Functia add_nodes se intoarce recursiv in
+arbore dupa ce adauga un numar pentru ca numerele vor fi mereu in frunze.
+    Functia create_node aloca memorie pentru un nod, aseaza in data parametrul
+primit folosind functia externa strdut pentru a se face deep copy, si
+returneaza un pointer catre acest nou nod.
+    Functia is_number verifica daca tokenul este numar sau operand comparand
+primul caracter din token cu caracterele '-', '+', '/' si '*'. Daca este egal
+cu '-', se verifica daca cumva tokenul este un numar negativ, si va returna 1
+daca este numar si 0 in caz contrtar.

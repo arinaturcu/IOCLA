@@ -1,0 +1,44 @@
+Turcu Arina Emanuela 323CA
+
+================================ TEMA 4 IOCLA =================================
+
+1. Analizarea binarului
+
+    Dupa analizarea binarului nice cu Ghidra, am observat ca functia 
+FUN_0804930c de la adresa 0x0804930c are o variabila locala auStack378 [374],
+in care se citeste de la stdin, dar functia read citeste 633 bytes, ceea ce
+este peste dimensiunea array-ului auStack378. Deci, aceasta functie este
+vulnerabila si poate fi exploatata.
+
+2. Spargerea binarului
+
+    Pentru exploatarea vulnerabilitatii, am generat fisierul nice_payload care
+contine atatea caractere cat sa produca un buffer overflow in functia vulnera-
+bila si sa suprascrie adresa de return cu adresa functiei care prineaza flagul
+cu urmaoarea comanda:
+
+python2 -c 'print ("a"*89 + "a"*97 + "a"*378 + "\x91\x92\x04\x08")' > nice_payload
+
+    Am aflat adresa functiei care prineaza flagul folosing Ghidra.
+    Flagul afisat este:
+
+NICE_FLAG{4469d8bf56ff28d0bbb7d61c929dae99}.
+
+3. Spargerea binarului v2
+
+    Am analizat binarul naughty cu gdb si am descoperit ca prima functie 
+apelata din main (functia de la adresa 0x080492de) are o vulnerabilitate si 
+anume: aloca pe stiva un buffer de dimensiune 113 si citeste in el 258 bytes, 
+dand sansa unui buffer overflow. Se observa din limbajul in cod de asamblare 
+aratat de gdb ca daca valoarea de la adresa ebp - 110 este diferita de valoarea
+0x77494666, programul se va termina cu codul de eroare 1. Adresa ebp - 110 este 
+echivalenta cu adresa buffer + 23, deci in payload-ul generat, am introdus 
+valoarea 0x77494666 la buffer[23] pentru ca functia sa poata da return.
+    Generand un buffer overflow, am suprascris adresa de return a functiei cu
+adresa functiei care printeaza flagul si am obtinut urmatotrul flag:
+
+NAUGHTY_FLAG{e428687a395e3371ce318b8062ee21ab}
+
+    Payload-ul a fost generat cu urmatoarea comanda:
+
+python2 -c 'print ("a"*23 + "\x66\x46\x49\x77" + "a"*110 + "\x91\x92\x04\x08")' > naughty_payload
